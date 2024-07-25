@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>David J. Haruch</title>
+	<link href="../../styles.css" rel="stylesheet">
+</head>
+
+<style type="text/css">
+	.img_border {
+		border: solid;
+		vertical-align: top;
+		margin: 10px;
+	}
+</style>
+
+<body>
+	<header>
+		<h1>David J. Haruch</h1>
+		<a href="https://davidharuch.github.io">Back to homepage</a>
+	</header>
+
+	<main>
+		<h2>Iron Core Linear Motor FEM Simulation</h2>
+		<h4>Updated 06-21-2024</h4>
+    
+    <p>Iron Core Linear Motors are commonly used in industry for servo positioning systems.</p>
+    
+   	<img src="ironcore_schematic2.png" width="50%">
+
+    <p>Many things are omitted from vendor catalogs and spec sheets that can cause issues in practical application or analytical calculations for mechanical/electrical design work. Most of the omitted things can be computed by FEM if you choose to design your own motor or can reverse engineer an off-the-shelf unit.</p>
+
+    <ol>
+    	<li><a href="#no1">Magnetic Saturation</a></li>
+    	<li><a href="#no2">Airgap Sensitivity</a></li>
+    	<li><a href="#no3">Driving and Attractive Force Ripple</a></li>
+    </ol>
+
+    <h3>FEM Setup and Design Parameters</h3>
+
+    	<p>A parametric model of a typical iron core motor construction was created with MATLAB and FEMM. The typical 3:4 ratio between coils and poles is used. The 3 phase coil currents are computed with sine commutation. While this example shows a moving coil (short coil, long magnet), moving magnet motors (long coil, short magnet) are also common and have similar performance.</p>
+
+    	<img src="FEMM_screenshot1.png" width="90%">
+    	<img src="FEMM_screenshot2.png" width="60%">
+    	<img src="10apk_ironcore_B.gif" width="37%">
+
+    <h3 id="no1">1. Magnetic Saturation</h3>
+	    <p>Soft magnetic materials have nonlinear properties. Depending on the material, the shapes of the force vs current characteristic and inductance vs current characteristic are impacted.</p>
+
+	   <img src="matl_prop_BH.png" width="70%">
+
+	    <p>Force vs current nonlinearity is important as it impacts the plant OLTF if not appropriately compensated and generates much more heat/demand on the amplifier than linear calculations would predict.</p>
+
+	    <p>Inductance vs current nonlinearity is important as it impacts the time constant of the motor and therefore the current loop OLTF. From the FEM result the phase inductance is computed as flux linkage/current derivative and averaged between the 3 phases. The controller must be adjusted otherwise the current control loop will be unstable at high levels of current. <a href="https://webhelp.kollmorgen.com/kas/Content/UsersManual/Current%20Loop%20Gain%20Scheduling.htm#:~:text=Current%20Loop%20Gain%20Scheduling%20is,scale%20factor%20based%20on%20current.">Gain scheduling the current loop</a> is a good method with the typical PI controllers used.</p>
+	    <img src="current_nonlin.png" width="100%">
+	    <p>For low speed motors, special cobalt alloys (trade name Hiperco-50 or Hiperco-27) can delay the onset of saturation at a roughly 3x to 10x cost increase over electrical steel. These materials are important in applications where a larger/heavier motor is unacceptable, like aerospace, semiconductor, etc...</p>
+
+    <h3 id="no2">2. Air Gap Sensitivity</h3>
+
+    	<p>Due to the nonlinearity of the equations and material properties, the performance is highly dependent on the air gap. With normal machining tolerances (+/-0.1mm) of the supporting parts the force constant, attractive force, and inductance can all vary more than most folks would expect. If tight tolerances can be specified some additional performance can be had by running a very small air gap.</p>
+
+    	<img src="airg_swp_small.png" width="90%">
+
+
+    	<p>A second consequence of this simulation is knowledge of the "safe handling" height of the magnet tracks where there will be no magnetic pull. For this specific geometry it is around 15mm.</p>
+
+    	<img src="airg_swp_large.png" width="65%">
+    	<img src="airgap_sweep_movie.gif" width="24%">
+
+    <h3 id="no3">3. Force Ripple</h3>
+	    <p>In precision or scanning applications force ripple can impact the servo performance. In addition, for iron core motors there is also attractive force ripple. These ripples can impact the servo tracking and change the deflection of the bearings/stage supporting the motor. The magnetic design can be adjusted to optimize the ripple but in general ironcore will always be worse than ironless. The magnitude of the force ripple is not readily published by commerical motor vendors.</p>
+
+	    <p>For this design, at 10Apk excitation, the force ripple in X (±15%) and Z (±7%) is relatively large.</p>
+	    <img src="ripple.png" width="100%">
+
+
+	<h3>Summary</h3>
+
+	<p>FEM can be used to simulate the performance and nonlinearities of iron core linear motor. Further work could entail optimization of the coils, lamination stack, magnet track, etc... to maximize the motor constant and minimize the moving mass.</p>
+
+	<p>Please contact me if you would like the codes used the generate the plots/figures---Thanks for reading</p>
+
+	<div style="padding-bottom: 200px;"></div>
+
+	</main>
+</body>
+
+</html>
