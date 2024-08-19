@@ -1,6 +1,36 @@
 html {
-	max-width: 950px;
+	font-family: "MS PGothic", sans-serif;
 	font-family: sans-serif;
 	margin: 0 auto;
 	line-height: 1.5;
+	background-color: #ddd;
+	color: #111;
+}
+
+body {
+	margin:0 auto;
+	padding: 35px 35px 80px;
+	max-width: 950px;
+	background-color: #fff;
+}
+
+main, header, footer {
+	
+}
+
+h1,h2,h3,h4 {
+	
+	line-height: 1;
+}
+
+h2,h3 {	
+	border-bottom: 1px solid #DDD;
+	/*border-left: 10px solid #88B04B;*/
+	padding: 1px 0 1px 1px;
+}
+
+h3 {	
+	border-bottom: 1px solid #DDD;
+	/*border-left: 10px solid #88B04B;*/
+	padding: 1px 0 1px 10px;
 }
