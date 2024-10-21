@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>David J. Haruch</title>
+	<link href="../../styles.css" rel="stylesheet">
+</head>
+
+<style type="text/css">
+	.img_border {
+		border: solid;
+		vertical-align: top;
+		margin: 10px;
+	}
+</style>
+
+<body>
+	<header>
+		<h1>David J. Haruch</h1>
+		<a href="https://davidharuch.github.io">Back to homepage</a>
+	</header>
+
+	<main>
+		<h2>Fox 36 Damper Mods</h2>
+		<h4>Updated 09-14-2024</h4>
+    
+		<p>My trail bike has a MY2020 Fox 36 170mm travel suspension fork with "Grip" damper. The design of the compression assembly is odd for the long travel application. Where I live now means I am riding my downhill bike less, so the poor performance is more annoying</p>
+
+		<img src="bike_annot.png" width="65%">
+
+		<h3>Baseline Design</h3>
+
+		<p>The existing base-valve design uses a threaded adjuster to change preload or even float on a stack of steel shims. The maximum amount of preload is controlled by a step on the piston measured as -0.29mm. The maximum float/bleed is controlled only by clearances and is measured as +0.73mm. The adjuster screw is a M5x0.8 thread so almost one full turn goes from effectively a large open orifice to a preloaded shim stack. This works very well for XC racing where you want a quick lockout, but that is not desirable when you want fine damping adjustments.</p>
+
+		<table style="text-align: center">
+			<tr>
+				<td><img src="baseline_adjopen.png" width="300px"></td>
+				<td><img src="baseline_adjclosed.png" width="300px"></td>
+			</tr>
+			<tr>
+				<td>(a) Baseline: Adjuster Fully Open</td>
+				<td>(b) Baseline: Adjuster Fully Closed</td>
+			</tr>
+		</table>
+
+		<p>My goal is to convert the damper to be more like Fox's older RC2 dampers or the more recently released Grip X. I would like easy external adjustment of bleed and an internally adjustable shim stack.</p>
+
+		<h3>Modifications to existing components for low speed bleed adjustment and shim stack</h3>
+
+		<p>With a few small re-works and new parts</p>
+
+		<img src="new_adj_mark.png" width="60%">
+
+			<br>
+		The valving pressure drop vs flow characteristic can be adjusted by
+		<ul>
+			<li>Changing the needle profile or position of the needle in the seat</li>
+			<li>Changing shim stack stiffness</li>
+			<li>Changing shim stack clamp diameter (currently 8mm)</li>
+			<li>Changing coil viscosity</li>
+		</ul>
+
+
+		<h4>Machining Drawings</h4>
+
+		<img src="drawing1.png" width="45%" align="top">
+		<img src="drawing2.png" width="45%" align="top">
+
+		<p></p>
+
+		<img src="drawing3.png" width="45%" align="top">
+		<img src="drawing4.png" width="45%" align="top">
+
+		<h4>Photos of machined parts</h4>
+
+		<img src="lsc_rod_setscrew.jpg" height="250px">
+		<img src="lsc_m2p5_tap.jpg" height="250px">
+		<img src="piston_machining.jpg" height="250px">
+
+		<img src="assembled_1.jpg" height="250px">
+		<img src="needle_machining.jpg" height="250px">
+		<img src="needle_assembled.jpg" height="250px">
+
+		<p>I made some modifications based on the scrap stock I had on hand</p>
+
+		<!-- <h3>Revised adjuster for fine control</h3>
+
+		<h3>Summary and Performance Comments</h3> -->
+
+		<h3>CAD Models</h3>
+		<ul>
+			<li><a href="f36_assy.STEP">Reverse Engineered Fox 36 Grip Damper Step File</a></li>
+			<li><a href="f36_comp_adj_assy_djhtune.STEP">Modified Compression Assy Step File</a></li>
+		</ul>
+
+
+
+	</main>
+</body>
+
+</html>
