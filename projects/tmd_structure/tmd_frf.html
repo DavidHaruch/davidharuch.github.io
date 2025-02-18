@@ -84,7 +84,7 @@
     
     G=<img src="tf_estimate_coeffs.png" width="100%">
 
-    <p>Using only the FEA code, any change to the TMD parameters (stiffness, mass, damping) would need a full re-run of the model, which could be 1-8+ hours of calcultion time depending on the model complexity. The beauty of the state space or transfer function method is that it allows quick computation and iteration on the TMD parameters. Computation time is reduced from potentially hours to seconds.</p>
+    <p>Using only the FEA code, any change to the TMD parameters (stiffness, mass, damping) would need a full re-run of the model. In this case the model is very simple, but it is easy to imagine how long computation could take with a 10million+ DOF FEA model of a complex structure. Calculation time of 1-8+ hours is not unreasonable depending on the model complexity and available computer power. The beauty of the state space or transfer function method is that it allows quick computation and iteration on the TMD parameters. Computation time is reduced from potentially hours to seconds.</p>
 
     <p>A tuned mass damper with mass = 200g, c = 50Ns/m, k = 110e3 N/m is selected to be installed which reduces the FRF amplitude due to the first peak by 91.8% and the second peak by 60.3%.</p>
 
