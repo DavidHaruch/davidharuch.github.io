@@ -6,6 +6,7 @@ html {
 	line-height: 1.5;
 	background-color: #ddd;
 	color: #111;
+	counter-reset: figures;
 }
 
 body {
@@ -39,4 +40,26 @@ h3 {
 ul {
 	padding-left: 1.1em;
 	margin-top: 0.5em;
+}
+
+h4 {
+	font-style: italic;
+}
+
+h5 {
+	text-decoration: underline;
+}
+
+figure {
+	margin:0;
+	counter-increment: figures;
+}
+
+figcaption {
+	font-style: italic;
+	text-align: left;
+}
+
+figcaption:before {
+	content: 'Figure ' counter(figures) ': ';
 }
