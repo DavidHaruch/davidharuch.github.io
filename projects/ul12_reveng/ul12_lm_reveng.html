@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>David J. Haruch</title>
+	<link href="../../styles.css" rel="stylesheet">
+</head>
+
+<style type="text/css">
+	.img_border {
+		border: solid;
+		vertical-align: top;
+		margin: 10px;
+	}
+</style>
+
+<body>
+	<header>
+		<h1>David J. Haruch</h1>
+		<a href="https://davidharuch.github.io">Back to homepage</a>
+	</header>
+
+	<main>
+		<h2>UL12 Ironless Linear Motor Simulation + Rev Engineering</h2>
+		<h4>Updated 02-13-2025</h4>
+    
+    <p>Ironless linear motors are commonly used in industry for positioning.</p>
+
+    <img src="photos/ironless_motor_diagram.jpg" width="35%">
+
+    <h3 id="COTS">Tecnotion UL12S Coil Teardown</h3>
+    
+	    <p>A scrap Tecnotion UL12S model linear motor coil was purchased used (ebay)</p>
+
+	    <p>Details of the magnet track can be evaluated from the CAD models on the internet. The magnet grade is unknown and will need to be determined with simulation results.</p>
+
+	    <img src="photos/UL3_dimensions.png" width="80%">
+
+	    <p>Details of the coil unit are measured by cutting it apart. See the below photos. The coil has high quality, orthocyclic windings and the glue has no voids. Each coil has 90 turns of copper wire. The end-turns have a truncated/radiused square shape instead of a circle---this is a good improvement for footprint and minimizing the copper that produces no force. It is common to maintain a 4:3 ratio for the coil pitch to magnetic pitch (N-S) ratio. As such, the coil pitch measured 21mm*(4/3) = 28mm. </p>
+
+		<img src="photos/s-l1600_ebay2_brightmarkup.jpg" width="90%">
+
+	    <img src="IMG_7107.png" width="30%">
+	    <img src="IMG_7089.png" width="30%">
+	    <img src="IMG_7085.png" width="30%">
+
+	    <!-- <img src="photos/coil_winding_example1.jpg" width="35%">
+	    <img src="photos/coil_winding_example2.jpg" width="35%"> -->
+
+	    <p>There appears to be a polymer or fiberglass mesh sheet material on top of the coils. Perhaps this is a spacer used in the epoxy ecapsulation process.</p>
+
+	    <p>Based on the coil dimensions, the phase resistance of each coil is estimated considering orthocyclic winding of 0.72mm round wire with 0.05mm insulation/enamel build. Each coil is expected to have a R25 of 0.624ohm, close to the Tecnotion datasheet. For the configuration of UL12S, there are 4x coils per phase. For each phase based on the datasheet phase resistance, the 4 coils are connected series-parallel, which makes the current in each coil 1/2 the nominal and the phase resistance the same as a single coil. The coils could be connected in a different way to give a higher/lower Kf and better match the amplifier</p>
+
+	    
+	    <!-- <img src="photos/ul3_coil_dims.png" width="45%"> -->
+
+	<!-- <h3>UL12 Coil CAD Model (including internals)</h3>
+
+	<p>A coil CAD model is created based on the measurements. Please feel free to download a STEP file here. The model should be easily scaled to the other coil sizes like UL9, UL6</p> -->
+
+	 <h3 id="FEM_Setup">2D FEM Setup</h3>
+
+	    <p>A 2D finite element model of the motor is created in FEMM. A synchronous current (ipk) of 1A is passed through the windings (<math display="inline" class="tml-display" style="display:inline math;"><mrow><msub><mi>i</mi><mi>a</mi></msub><mo>=</mo><mn>1</mn><mi>A</mi></mrow></math>, <math display="inline" class="tml-display" style="display:inline math;"><mrow><msub><mi>i</mi><mi>b</mi></msub><mo>=</mo><mn>-0.5</mn><mi>A</mi></mrow></math>, <math display="inline" class="tml-display" style="display:inline math;"><mrow><msub><mi>i</mi><mi>c</mi></msub><mo>=</mo><mn>-0.5</mn><mi>A</mi></mrow></math>). In a "RMS of phase" current description, this is a current of 0.7071A. The coil position is varied to determine the location of peak force. At the location of peak force, the coil field is 90deg offset from the magnet-track field. For purposes of computing the motor constant, the copper loss of a 3 phase wye coil set can be computed as P = Rph*(3/2)*i_pk^2.</p>
+
+	    <!-- <img src="photos/baseline_ul3_motor_FEM.png" width="100%"> -->
+	    <!-- <img src="photos/baseline_ul3_motor_FEM_B.png" width="100%"> -->
+
+	    <img src="FEM_setup.png" width="100%">
+	    <img src="FEM_result_N42.png" width="100%">
+	    <img src="FEM_current_density.png" width="100%">
+
+	    <p>The finite element model post processed data is compared to the vendor specification sheet for multiple magnet grades. N42 agrees well, and is a common grade for motors of moderate performance. Stronger, more expensive magnets could increase performance. Relative to N42, the % increase in Kf is 6.76%, 10.42%, 12.94% for N48, N52, and N55 respectively. Many linear motor vendors offer special stronger magnet track options.</p>
+
+	    <img src="fea_mag_grade_sens_ul12s.png" width="100%">
+
+
+
+	    <br>
+	    <br>
+
+	    <center>
+ 		<table border="2px" cellpadding="3px">
+			<thead>
+			  <tr>
+			    <th>Parameter</th>
+			    <th>Datasheet Value</th>
+			    <th>N42 FEM Simulation</th>
+			    <th>% Error</th>
+			    <th>Unit</th>
+			  </tr>
+			</thead>
+			<tbody>
+			  <tr>
+			    <td>Motor Constant @ 25C Coils</td>
+			    <td>394</td>
+			    <td>403.34</td>
+			    <td>2.4%</td>
+			    <td>N/&#x221a;W</td>
+			  </tr>
+			  <!-- <tr>
+			    <td>Phase Resistance @ 25C Coils</td>
+			    <td>0.64</td>
+			    <td></td>
+			    <td></td>
+			    <td>Ohms</td>
+			  </tr> -->
+			  <tr>
+			    <td>Force Constant @ 20C Magnets</td>
+			    <td>27.5</td>
+			    <td>27.83</td>
+			    <td>1.2%</td>
+			    <td>N/Arms</td>
+			  </tr>
+			</tbody>
+		</table>
+		</center>
+
+	    <br>
+	    <br>
+	    <center>
+		<img src="mag_grade_sens_ul12s_chart.png" width="65%">
+		</center>
+
+    	<!-- <h4>Mechanical Load FEA</h4>
+    	<p>The attractive force between the magnets is computed by FEM as 1101N for N35 magnets (5x magnetic pitches). This load is used for a mechanical FEM simulation to determine the stress and deformation.</p>
+
+    	<img src="photos/baseline_stress.gif" width="45%">
+    	<img src="photos/baseline_stress.png" width="45%">
+    	<img src="photos/baseline_disp.png" width="90%">
+
+    	<p>The maximum displacement is 42.6 micron and the peak von-mises stress is ~30MPa. Mechanically the motor is conservatively designed.</p> -->
+
+	<h3 id="Summary">Summary</h3>
+
+		<p>A commercial ironless linear motor is reverse engineered and the datasheet performance is compared with simulation. Good agreement is seen with 2D FEM calculations. Analysis showed a magnet grade of N42 is most likely for the off-the-shelf magnet tracks.</p>
+		
+	<h3>Potential Future Work</h3>
+		<ul>
+			<li>Evaluate the thermal behavior of the motor by FEM (thermal resistance and expansion)</li>
+			<li>Evaluate performance improvement with Halbach Magnet Arrays</li>
+			<li>Evaluate flat or square coils for ironless LM</li>
+			<li>Magnetic shielding for sensitive applications</li>
+		</ul>
+
+	<hr>
+
+	</main>
+</body>
+
+</html>
