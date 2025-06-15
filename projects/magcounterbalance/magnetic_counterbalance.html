@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>David J. Haruch</title>
+	<link href="../../styles.css" rel="stylesheet">
+</head>
+
+<style type="text/css">
+	.img_border {
+		border: solid;
+		vertical-align: top;
+		margin: 10px;
+	}
+</style>
+
+<body>
+	<header>
+		<h1>David J. Haruch</h1>
+		<a href="https://davidharuch.github.io">Back to homepage</a>
+	</header>
+
+	<main>
+		<h2>Examples of Magnetic Gravity Compensator Designs & Typical Performance</h2>
+		<h4>Updated 06-14-2025</h4>
+	
+		<p>Many motion systems have a Z axis and large mass relative to the actuator. At standstill, the Z actuator must support the load of gravity. This leads to increased power consumption and therefore heat that will cause structural deformation. Selecting a larger Z motor is often not desirable as the extra mass degrades performance and adds cost.</p>
+
+		<p>What is needed is a device that can produce a force equal and opposite to gravity that has as close to zero stiffness (dF/dz) as possible, to minimize force that the Z actuator must overcome when away from neutral position.</p>
+
+		<p>Some possible ways to counterbalance against gravity:</p>
+		<ul>
+			<li>Weight on Pulley</li>
+			<li>Vacuum Bellows (Roeders Milling Machines)</li>
+			<li>Air cylinder</li>
+			<li>Spring/Flexure</li>
+			<li><b>Magnetic Attraction/Repulsion</b></li>
+		</ul>
+
+		<p>Gravity compensators using magnets will be discussed because they have good properties for use in semiconductor manufacturing. They are non-contact (no particles, infinite life) and enable high performance. One downside is such compensators can be large and expensive if a heavy load must be supported (>20kg)</p>
+
+		<h3>Example Publsihed Gravity Compensators, Patents, etc.. </h3>
+		<div style="display: flex;">
+		  <div style="width: 40%; display: flex; flex-direction: column; align-items: center; margin-right: 20px;">
+		    <p><a href="https://www.dspe.nl/wp-content/uploads/2024/04/Mikroniek-2024-2-Rotating-MagLev-sample-manipulator.pdf">Mikroniek nr2 2024</a> (ring type design)</p>
+		    <img src="dspe_nr2_2024_gravcompensator.png" style="width: 100%;">
+		  </div>
+
+		  <div style="width: 32%; display: flex; flex-direction: column; align-items: center;">
+		    <p><a href="https://patents.google.com/patent/US8804099">Canon Patent US8804099</a> (2014) <br>	(linear type design)</p>
+		    <img src="canon_us8804099_2014.png" style="width: 100%;">
+		  </div>
+		</div>
+
+
+		<h3>Ring/Round Magnet Axisymetric Design</h3>
+		<p>One feasible topology is a ring magnet above a round magnet.</p>
+
+		<p>DSPE has a good <a href="https://youtu.be/QwTWVbpkQWM?si=WtzaPnXrlSR0CSps&t=320">video</a> explaining the concept <i>(audio is Dutch, slides are English?)</i>.</p>
+
+		<p>I wrote a 2D axisymetric script in FEMM for analysis of such a gravity compensator with N52 magnets and 48mm OD. FEM calculations show quasi-zero stiffness region (less than 0.5N/mm) can be achieved over range of 1.3mm while supporting ~3.7kg. The overall force change over 4mm is less than 2N.</p>
+
+		<img src="ringplusround2_markup.png" width="21%">
+		<img src="ringplusround1.png" width="74%">
+		
+
+		<h3>Linear/Square Magnet Design</h3>
+		<p>A second feasible topology is a linear type design using a few rectangle shaped magnets.</p>
+
+		<p>The performance is comparable to the ring type design. The variation in Z force over 5mm range is ~1.6N while supporting >8kg.</p>
+
+		<img src="linear1.png" width="50%">
+		<img src="linear2.png" width="23%">
+		<img src="linear3.png" width="26%">
+
+		<p>By looking at the pattern of flux in the back irons, mass-reduction/lightweighting cuts like I discussed in my <a href="https://davidharuch.github.io/projects/back_iron_optimization/backiron_opt.html">VCM back iron optimziation page</a> are likely feasible</p>
+
+		<p>The amount of force can be tuned by adjusting the air gap. 1mm change in air gap changes force 10.4N (11.3%). It is not a leap to think of a design with a flexure and LH/RH threaded lead-screw to make an easy tuning device to account for variations in magnetic properties and Z axis mass</p>
+
+		<img src="linear4.png" width="36%">
+
+		<p>Thanks for reading--codes are available on my Github profile</p>
+
+
+	</main>
+</body>
+
+</html>
