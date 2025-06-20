@@ -5,12 +5,12 @@
 openfemm;
 newdocument(0);
 
-problem_length = 25; %
+problem_length = 0.25*25.4; %
 mi_probdef(0,'millimeters','planar',1e-008,problem_length,30,0);
 
 % materials
 % magnet_grade = 'N35';
-magnet_grade = 'N48';
+magnet_grade = 'N42';
 % magnet_grade = 'N48';
 % magnet_grade = 'N55';
 back_iron_material = '1018 Steel';
@@ -21,15 +21,15 @@ mi_getmaterial(back_iron_material);
 
 %magnets
 
-centermag_x = 5.5;
-centermag_y = 23;
+centermag_x = 0.0625*25.4;
+centermag_y = 3.175*4;
 
-sidemag_y = 11.5;
-sidemag_x = 3.5;
-sidemag_gap_y = 1;
-backiron_x = 4;
+sidemag_y = 2*0.125*25.4;
+sidemag_x = 0.0625*25.4;
+sidemag_gap_y = 0.5;
+backiron_x = 2;
 
-ag = 1.5;
+ag = 0.8;
 
 sidemag_x_start = centermag_x/2 + ag;
 sidemag_x_end = sidemag_x_start + sidemag_x;
@@ -93,8 +93,8 @@ mi_clearselected;
 
 
 mi_makeABC()
-mi_addblocklabel(5,22);
-mi_selectlabel(5,22);
+mi_addblocklabel(3,8);
+mi_selectlabel(3,8);
 mi_setblockprop('Air',0,0,0,0,0,0);
 mi_clearselected;
 
@@ -107,8 +107,8 @@ mi_saveas(fullfile(pwd,'abc123.fem')); % this must be .fem
 
 %% define range of positions swept
 
-pos_swp = linspace(5,-5,25); % range of positions to sweep
-%pos_swp=0
+pos_swp = linspace(5,-5,35); % range of positions to sweep
+%pos_swp=-5
 force_wst = [];
 for i=1:length(pos_swp)
     this_pos = pos_swp(i);
