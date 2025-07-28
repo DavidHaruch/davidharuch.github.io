@@ -1,0 +1,21 @@
+// Count copper strands in linear motor coil cross-section
+
+run("Duplicate...", "title=CoilTurns");
+run("8-bit");                         // Convert to grayscale
+//run("Enhance Contrast", "saturated=0.35");
+//run("Gaussian Blur...", "sigma=1");  // Smooth edges
+setAutoThreshold("Default");
+run("Convert to Mask");              // Binary mask
+
+run("Watershed");                    // Optional: separate touching circles
+
+// Clean up
+run("Fill Holes");
+run("Erode");
+run("Dilate");
+
+// Set measurement parameters
+run("Set Measurements...", "area centroid bounding redirect=None decimal=2");
+
+// Analyze particles (adjust size as needed)
+run("Analyze Particles...", "size=10-50 circularity=0.5-1.00 show=Outlines display summarize");
