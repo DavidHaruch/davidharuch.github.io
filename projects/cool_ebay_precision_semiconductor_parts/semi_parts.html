@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>David J. Haruch</title>
+	<link href="../../styles.css" rel="stylesheet">
+</head>
+
+<script type="text/javascript">
+
+/*jslint
+    white: true,
+    browser: true,
+    vars: true
+*/
+
+/**
+ * Generates a table of contents for your document based on the headings
+ *  present. Anchors are injected into the document and the
+ *  entries in the table of contents are linked to them. The table of
+ *  contents will be generated inside of the first element with the id `toc`.
+ * @param {HTMLDOMDocument} documentRef Optional A reference to the document
+ *  object. Defaults to `document`.
+ * @author Matthew Christopher Kastor-Inare III
+ * @version 20130726
+ * @example
+ * // call this after the page has loaded
+ * htmlTableOfContents();
+ */
+function htmlTableOfContents (documentRef) {
+    var documentRef = documentRef || document;
+    var toc = documentRef.getElementById('toc');
+    //var headings = [].slice.call(documentRef.body.querySelectorAll('h1, h2, h3, h4, h5, h6'));
+    var headings = [].slice.call(documentRef.body.querySelectorAll('h3, h4, h5, h6'));
+    headings.forEach(function (heading, index) {
+        var anchor = documentRef.createElement('a');
+        anchor.setAttribute('name', 'toc' + index);
+        anchor.setAttribute('id', 'toc' + index);
+        
+        var link = documentRef.createElement('a');
+        link.setAttribute('href', '#toc' + index);
+        link.textContent = heading.textContent;
+        
+        var div = documentRef.createElement('div');
+        div.setAttribute('class', heading.tagName.toLowerCase());
+        
+        div.appendChild(link);
+        toc.appendChild(div);
+        heading.parentNode.insertBefore(anchor, heading);
+    });
+}
+
+try {
+     module.exports = htmlTableOfContents;
+} catch (e) {
+    // module.exports is not defined
+}
+
+</script>
+
+<style type="text/css">
+	.img_border {
+		border: solid;
+		vertical-align: top;
+		margin: 10px;
+	}
+
+
+
+	#toc .h3 {
+	    text-indent: .05in;
+	}
+	#toc .h4 {
+	    text-indent: .125in;
+	}
+	#toc .h5 {
+	    text-indent: .25in;
+	}
+	#toc .h6 {
+	    text-indent: .375in;
+	}
+
+</style>
+
+<body onload="htmlTableOfContents();">
+	<header>
+		<h1>David J. Haruch</h1>
+		<a href="https://davidharuch.github.io">Back to homepage</a>
+	</header>
+
+	<main>
+		<h2>Cool Precision Semi Parts</h2>
+		Updated 2025-09-17
+
+		<p>This is a collection of saved Ebay (and other sites like ebay) used parts listings. Annotations are speculation and are my own. All photos are obtained from public web-pages or public patent literature</p>
+
+		
+		<div id="toc">
+        <h3>Table of Contents</h3>
+    	</div>
+
+    	<div id="contents">
+    		<!-- h3>NIKON</h3>
+
+    			<h4>NSR S202A Dry ArF Lithography Machine</h4>
+    			<h5>Reticle Stage</h5>
+    			<p>The distinctive cream colored long stroke part appears to be alumina ceramic (Al2O3) which has good E modulus and low density. The clear short stroke/mirror plate part appears to be a glass or glass-ceramic part</p>
+
+				<p>QTY 4 Voice coil motors control the X, Y, and RZ DOFs of the short stroke stage</p>
+
+				<p>Short-stroke position appears to be measured by laser interferometers pointing at flat glass mirrors.</p>
+
+    			<p>There are 3 vacuum pads for clamping the reticle</p>
+
+    			<p>The short stroke is constrained in Z/pitch/roll by air bearings preloaded by vacuum</p>
+
+    			<p>The long stroke is constrained in all axes other than the actuated DOF by air bearings hard-preloaded by opposing air bearings. This arrangement is very sensitive and extremely good fabrication is needed for the bearings to fly well</p>
+
+    			<h4>NSR S322F Dry ArF Lithography Machine - 2015? Vintage</h4>
+
+    			<h5>Dual Wafer Stage</h5>
+    			<p>Suprising amount of detail in the photos for a recent lithography machine, especially one capable of 2 nanometer overlay</p>
+
+    			<p>The Y axis magnet-tracks are monsters. Some of the biggest linear motors I've ever seen in a semiconductor machine</p>
+
+    			<p>Balance mass trim coils appear to use the main magnet tracks---possibly saving some cost. Even the balance mass trim motors have water coolant pipes!</p>
+
+    			<p>There are two visible mirror for the interferometer system. I believe this vintage of scanner stage uses a 2D encoder grid the is immune to short-term air turbulence variation paired with interferometers as a golden long-term stability reference. See Nikon Patent US7839485B2</p>
+
+    			<p>The wafer stage long-stroke movers appear to be controlled by moving magnet lorentz actuators in all DOFs. Although there may be air bearings or gravity counterbalance mechanisms in Z that are not visible. Therefore the only connection to ground is the dynamic cables. See Nikon Patent US9557656B2 and US20130148094A1</p>
+
+			<div style="break-after:page"></div> -->
+    		<h3>ASML</h3>
+    			<h4>Yieldstar T200 - 2013 Vintage</h4>
+
+    			<p>Original Sources</p>
+    			<ul>
+    				<li>https://www.nts-group.com/en/nts-and-asmls-partnership-on-the-yieldstar/</li>
+    				<li>https://web.archive.org/web/20250924045937/https://caeonline.com/buy/wafer-testing-and-metrology/asml-yieldstar-t-200c/293667079</li>
+    				<li>https://www.hightechinnovators.nl/case/asml-yieldstar/</li>
+    			</ul>
+
+
+				<p>Overlay metrology machines use special measuring microscopes (imaging or scatterometry) to take pictures of special marks made on wafers. Based on the pictures or signals from imaging the marks, the offset between special marks between layers can be measured (at sub-nanometer scale).</p>
+
+				<img width="100%" src=".\ASML\yieldstar NTS\Mechanics-Mechanical-parts-in-module-e1678876777273 - Copy.jpg">
+
+				<hr>
+
+				<img width="33%"  src=".\ASML\yieldstar t200\annotated\asml_yieldstar-t-200c_78636598.jpg">
+    			<img width="33%"  src=".\ASML\yieldstar t200\annotated\asml_yieldstar-t-200c_78636601.jpg">
+    			<img width="33%"  src=".\ASML\yieldstar t200\annotated\asml_yieldstar-t-200c_78636602.jpg">
+    			
+    			<hr>
+
+    			<p>Balance mass video</p>
+
+				<video controls autoplay loop muted playsinline width="75%">
+  				<source src=".\ASML\yieldstar NTS\YieldStar： A steady stream of data to optimize chip manufacturing - Trim.mp4" type="video/mp4">
+				</video>
+
+				<p>The machines use a motion system (stage) to move the wafer with respect to the optics to take pictures of all the marks on a wafer at high throughput.</p>
+
+				<p>This ASML machine moves the wafer on X axis and the camera on the Y axis. This approach probably gives higher performance that a stacked XY stage layout assuming the camera is lightweight and compact.</p>
+
+    			<p>The stages float on <b style="color: red;">air bearings</b> presumably preloaded by visible <b style="color: #B5E61D;">magnet arrays</b>. Based on the porting holes the bearings appear to be an orifice or orifice/groove type. Magnetic preload allows for higher force density compared to a vacuum preloaded system. This enables stiff bearings and high servo bandwidth. The distintive mirror finished surfaces are required for air bearings to fly correctly (on a few micron film of air). There appear to be 3 horizontal bearings constraining Z, Rx, Ry DOFs and 2 vertical bearings constraining Rz and Y DOFs. Air bearings are also very clean (no particle or oil/grease droplet risks)</p>
+
+				<p>There is a balance mass system to eliminate optics excitation or stage crosstalk from motor reaction forces. The balance mass system also floats on <b style="color: red;">air bearings</b>. There are <b  style="color: purple;">moving magnet trim motors</b> and commutation encoders for the balance masses.</p>
+
+    			<p>There are <b style="color: pink">EDM cut flexures</b> on a component perhaps for thermal relief or improved repeatability.</p>
+
+    			<p>A pair of <b style="color: blue">magnet tracks</b> move the wafer stage along its remaining X DOF. Therefore the axis is moving coil. I would expect there to be a water cooling system to cool the motors. Visually these look like Tecnotion linear magnet tracks which have distinctive nickel plating on the back irons and black epoxy coated magnets</p>
+
+    			<p>Overall the stage motion system appears capable of both high throughput and high repeatability due to all motion axes floating on air bearings.</p>
+
+    			<img width="100%" src=".\ASML\yieldstar t200\annotated\asml_yieldstar-t-200c_78636599 - crop.jpg">
+    			<img width="66%"  src=".\ASML\yieldstar t200\bearing_guess.png">
+    			<img width="32%"  src=".\ASML\yieldstar t200\annotated\asml_yieldstar-t-200c_78636600.jpg">
+    			
+				<div style="break-after:page"></div>
+    			<!-- <h4>Reticle stage magnetic preload air bearing</h4>
+
+    			<p>Ebay listing is labeled as ASML, but there is a SMEE patent with an almost identical photo. ASML parts normally have distintive labels. There are no markings to confirm this is an ASML part. Still an interesting peice of precision engineering.</p>
+
+    			<p>A universal-joint type flexure (inherently preloaded) allows for a highly repeatable and moderate stiffness coupling between the air bearing and rest of the stage. Compared to "ball-in-cone" and spherical plain bearings this may offer improved performance.</p>
+
+    			<div style="break-after:page"></div> -->
+
+    		<!-- <h3>ASM PACIFIC TECHNOLOGY</h3>
+    		<h3>CANON</h3> -->
+    		<h3>KLA-TENCOR</h3>
+    			<h4>Archer AIM 200 - 2007 Vintage</h4>
+    			
+    			<p>Source: https://caeonline.com/buy/mask-wafer-inspection/kla-tencor-archer-200-aim/9255571</p>
+
+    			<img src=".\KLA-TENCOR Archer 200 AIM\kla-tencor_archer-200-aim_1139115.JPG" width="25.3%">
+    			<img src=".\KLA-TENCOR Archer 200 AIM\kla-tencor_archer-200-aim_1139109.JPG" width="32%">
+    			<img src=".\KLA-TENCOR Archer 200 AIM\kla-tencor_archer-200-aim_1139112.JPG" width="32%">
+
+    			<p>KLA Archer machines are overlay metrology machines. The layout is a "C-Frame" much like a bridgeport mill but with an objective/optics/camera assembly instead of a milling spindle. Special marks made on wafers during the semiconductor manufacturing process are imaged to measure how well layers are aligned.</p>
+
+    			<p>Stage and controller have ETEL branding. Appears to be a customized off-the-shelf stage</p>
+    			<p>Stacked stage contruction using iron core linear motors and roller type linear guides. Label XYT. Stage structural material looks like aluminum. Overall nothing special and low cost (ETEL must take a healthy margin)</p>
+
+    			<p>A high voltage electronics box and labels of "Z-PZT" likely mean there is peizo axis in the optics.</p>
+
+    			<img src=".\KLA-TENCOR Archer 200 AIM\kla-tencor_archer-200-aim_1139128.JPG" width="48%">
+    			<img src=".\KLA-TENCOR Archer 200 AIM\kla-tencor_archer-200-aim_1139138.JPG" width="48%">
+
+
+    			<p>The stage and optics are mounted to large grey granite. The granite connects to steel weldment through passive isolation metal springs. There are visible magnets belonging to voice coil motors used to stop granite motion due to stage reaction forces. Compared to the 2013 ASML yieldstar machine above (with balance masses absorbing stage reaction forces) these voice coils and amplifiers likely add cost and they do not eliminate the excitation of the optics from stage reaction forces.</p>
+
+    			<img src=".\KLA-TENCOR Archer 200 AIM\kla-tencor_archer-200-aim_1139130.JPG" width="48%">
+    			<img src=".\KLA-TENCOR Archer 200 AIM\kla-tencor_archer-200-aim_1139137.JPG" width="48%">
+    			
+    			
+
+
+    	</div>
+    	<div onload="htmlTableOfContents()"></div>
+
+	</main>
+</body>
+
+</html>
