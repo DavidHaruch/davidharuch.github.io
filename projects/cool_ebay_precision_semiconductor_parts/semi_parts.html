@@ -91,7 +91,7 @@ try {
 		<h2>Cool Precision Semi Parts</h2>
 		Updated 2025-09-17
 
-		<p>This is a collection of saved Ebay (and other sites like ebay) used parts listings. Annotations are speculation and are my own. All photos are obtained from public web-pages or public patent literature</p>
+		<p>This is a collection of saved Ebay (and other sites like ebay) used parts listings for mostly semiconductor processing equipment motion stages. Annotations are speculation and are my own. All photos are obtained from public web-pages or public patent literature</p>
 
 		
 		<div id="toc">
@@ -99,36 +99,46 @@ try {
     	</div>
 
     	<div id="contents">
-    		<!-- h3>NIKON</h3>
+    		<h3>NIKON</h3>
 
-    			<h4>NSR S202A Dry ArF Lithography Machine</h4>
+<!--     			<h4>NSR S202A Dry ArF Lithography Machine</h4>
     			<h5>Reticle Stage</h5>
     			<p>The distinctive cream colored long stroke part appears to be alumina ceramic (Al2O3) which has good E modulus and low density. The clear short stroke/mirror plate part appears to be a glass or glass-ceramic part</p>
 
 				<p>QTY 4 Voice coil motors control the X, Y, and RZ DOFs of the short stroke stage</p>
 
-				<p>Short-stroke position appears to be measured by laser interferometers pointing at flat glass mirrors.</p>
+				<p>Short-stroke position appears to be measured by laser interferometers pointing at flat glass mirrors.</p> -->
 
-    			<p>There are 3 vacuum pads for clamping the reticle</p>
+<!--     			<p>There are 3 vacuum pads for clamping the reticle</p>
 
     			<p>The short stroke is constrained in Z/pitch/roll by air bearings preloaded by vacuum</p>
 
     			<p>The long stroke is constrained in all axes other than the actuated DOF by air bearings hard-preloaded by opposing air bearings. This arrangement is very sensitive and extremely good fabrication is needed for the bearings to fly well</p>
+ -->
+    			<h4>NSR S322F Lithography Machine - 2015? Vintage</h4>
 
-    			<h4>NSR S322F Dry ArF Lithography Machine - 2015? Vintage</h4>
+    			<p>Suprising amount of detail in the photos for a recent lithography machine, especially one capable of 2? nanometer overlay</p>
 
-    			<h5>Dual Wafer Stage</h5>
-    			<p>Suprising amount of detail in the photos for a recent lithography machine, especially one capable of 2 nanometer overlay</p>
+    			<p>The wafer chuck mover appears to be controlled by moving magnet lorentz actuators in all DOFs. Although there may be an air or magnetic gravity counterbalance mechanism for Z that is not visible. Therefore the only connection to ground vibration is the dynamic cables. See Nikon Patent US9557656B2 and US20130148094A1. This layout is expensive and requires many servo controllers, power amplifiers, etc... but likely not cost prohibitive for lithography scanner application.</p>
 
-    			<p>The Y axis magnet-tracks are monsters. Some of the biggest linear motors I've ever seen in a semiconductor machine</p>
+    			<p>The two stages (alignment/measurement and scanning) appear to have a different actuators. I would assume this implies the actuators are sized exactly to meet the specific duty cycle and motion profile of each stage.</p>
 
-    			<p>Balance mass trim coils appear to use the main magnet tracks---possibly saving some cost. Even the balance mass trim motors have water coolant pipes!</p>
+				<img src=".\NSR s322\nikon_nsr-s322f_78564878.jpg" width="100%">
+    			<img src=".\NSR s322\nikon_nsr-s322f_78564875.jpg" width="100%">
+    			<img src=".\NSR s322\nikon_nsr-s322f_78564879.jpg" width="100%">
+    			<img src=".\NSR s322\nikon_nsr-s322f_78564880.jpg" width="100%">
+    			<img src=".\NSR s322\nikon_nsr-s322f_78564881.jpg" width="100%">
+    			<img src=".\NSR s322\nikon_nsr-s322f_78564885.jpg" width="48%">
+    			<img src=".\NSR s322\nikon_nsr-s322f_78564887.jpg" width="48%">
 
-    			<p>There are two visible mirror for the interferometer system. I believe this vintage of scanner stage uses a 2D encoder grid the is immune to short-term air turbulence variation paired with interferometers as a golden long-term stability reference. See Nikon Patent US7839485B2</p>
+    			
 
-    			<p>The wafer stage long-stroke movers appear to be controlled by moving magnet lorentz actuators in all DOFs. Although there may be air bearings or gravity counterbalance mechanisms in Z that are not visible. Therefore the only connection to ground is the dynamic cables. See Nikon Patent US9557656B2 and US20130148094A1</p>
+    			<p>Here are a few patent images for reference</p>
+    			<img src=".\NSR s322\US9557656B2_3B.png" width="49%">
+    			<img src=".\NSR s322\US9557656B2_3A.png" width="49%">
+    			<img src=".\NSR s322\US9557656B2_2.png" width="55%">
 
-			<div style="break-after:page"></div> -->
+			<div style="break-after:page"></div>
     		<h3>ASML</h3>
     			<h4>Yieldstar T200 - 2013 Vintage</h4>
 
@@ -173,10 +183,16 @@ try {
     			<p>Overall the stage motion system appears capable of both high throughput and high repeatability due to all motion axes floating on air bearings.</p>
 
     			<img width="100%" src=".\ASML\yieldstar t200\annotated\asml_yieldstar-t-200c_78636599 - crop.jpg">
-    			<img width="66%"  src=".\ASML\yieldstar t200\bearing_guess.png">
+    			<img width="40%"  src=".\ASML\yieldstar t200\bearing_guess.png">
     			<img width="32%"  src=".\ASML\yieldstar t200\annotated\asml_yieldstar-t-200c_78636600.jpg">
     			
 				<div style="break-after:page"></div>
+
+<!-- 				<h4>Random Reticle Stage</h4>
+				<p>Unknown to what machine this belongs to, but interesting design. Iron core motors on the long stroke with lorentz actuators for short stroke. The Z pitch roll actuators are round type? The 2X scan direction actuators are much larger than the single coil for the perpendicular to scan direction. The long stroke appears to float on air bearings, while the short stroke appears magnetically levitated in all DOFs</p>
+
+				<p>The cable loop has a balanced design, but no deflectors</p> -->
+
     			<!-- <h4>Reticle stage magnetic preload air bearing</h4>
 
     			<p>Ebay listing is labeled as ASML, but there is a SMEE patent with an almost identical photo. ASML parts normally have distintive labels. There are no markings to confirm this is an ASML part. Still an interesting peice of precision engineering.</p>
@@ -211,9 +227,6 @@ try {
 
     			<img src=".\KLA-TENCOR Archer 200 AIM\kla-tencor_archer-200-aim_1139130.JPG" width="48%">
     			<img src=".\KLA-TENCOR Archer 200 AIM\kla-tencor_archer-200-aim_1139137.JPG" width="48%">
-    			
-    			
-
 
     	</div>
     	<div onload="htmlTableOfContents()"></div>
