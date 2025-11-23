@@ -3,6 +3,14 @@
 <head>
 	<title>David J. Haruch</title>
 	<link href="../../styles.css" rel="stylesheet">
+		<script async src="https://www.googletagmanager.com/gtag/js?id=G-XWBF30N880"></script>
+	<script>
+	  window.dataLayer = window.dataLayer || [];
+	  function gtag(){dataLayer.push(arguments);}
+	  gtag('js', new Date());
+
+	  gtag('config', 'G-XWBF30N880');
+	</script>
 </head>
 
 <style type="text/css">
@@ -59,7 +67,7 @@
 
 	 <h3 id="FEM_Setup">2D FEM Setup</h3>
 
-	    <p>A 2D finite element model of the motor is created in FEMM. A synchronous current (ipk) of 1A is passed through the windings (<math display="inline" class="tml-display" style="display:inline math;"><mrow><msub><mi>i</mi><mi>a</mi></msub><mo>=</mo><mn>1</mn><mi>A</mi></mrow></math>, <math display="inline" class="tml-display" style="display:inline math;"><mrow><msub><mi>i</mi><mi>b</mi></msub><mo>=</mo><mn>-0.5</mn><mi>A</mi></mrow></math>, <math display="inline" class="tml-display" style="display:inline math;"><mrow><msub><mi>i</mi><mi>c</mi></msub><mo>=</mo><mn>-0.5</mn><mi>A</mi></mrow></math>). In a "RMS of phase" current description, this is a current of 0.7071A. The coil position is varied to determine the location of peak force. At the location of peak force, the coil field is 90deg offset from the magnet-track field. For purposes of computing the motor constant, the copper loss of a 3 phase wye coil set can be computed as P = Rph*(3/2)*i_pk^2.</p>
+	    <p>A 2D finite element model of the motor is created in FEMM. A depth of 55mm is assumed (same depth as magnets). A synchronous current (ipk) of 1A is passed through the windings (<math display="inline" class="tml-display" style="display:inline math;"><mrow><msub><mi>i</mi><mi>a</mi></msub><mo>=</mo><mn>1</mn><mi>A</mi></mrow></math>, <math display="inline" class="tml-display" style="display:inline math;"><mrow><msub><mi>i</mi><mi>b</mi></msub><mo>=</mo><mn>-0.5</mn><mi>A</mi></mrow></math>, <math display="inline" class="tml-display" style="display:inline math;"><mrow><msub><mi>i</mi><mi>c</mi></msub><mo>=</mo><mn>-0.5</mn><mi>A</mi></mrow></math>). In a "RMS of phase" current description, this is a current of 0.7071A. The coil position is varied to determine the location of peak force. At the location of peak force, the coil field is 90deg offset from the magnet-track field. For purposes of computing the motor constant, the copper loss of a 3 phase wye coil set can be computed as P = Rph*(3/2)*i_pk^2.</p>
 
 	    <!-- <img src="photos/baseline_ul3_motor_FEM.png" width="100%"> -->
 	    <!-- <img src="photos/baseline_ul3_motor_FEM_B.png" width="100%"> -->
@@ -94,7 +102,7 @@
 			    <td>394</td>
 			    <td>403.34</td>
 			    <td>2.4%</td>
-			    <td>N/&#x221a;W</td>
+			    <td>N^2/W</td>
 			  </tr>
 			  <!-- <tr>
 			    <td>Phase Resistance @ 25C Coils</td>
@@ -120,18 +128,17 @@
 		<img src="mag_grade_sens_ul12s_chart.png" width="65%">
 		</center>
 
-    	<!-- <h4>Mechanical Load FEA</h4>
-    	<p>The attractive force between the magnets is computed by FEM as 1101N for N35 magnets (5x magnetic pitches). This load is used for a mechanical FEM simulation to determine the stress and deformation.</p>
+    	<h3>Mechanical Load FEA</h3>
+    	<p>The attractive force between the magnet tracks is computed by FEM as 1261N for N42 magnets (5x magnetic pitches). This load is used for a FEM calculation of stress and deformation.</p>
 
-    	<img src="photos/baseline_stress.gif" width="45%">
-    	<img src="photos/baseline_stress.png" width="45%">
-    	<img src="photos/baseline_disp.png" width="90%">
+    	<img src="mechstress.png" width="45%">
+    	<img src="mechdisp.png" width="45%">
 
-    	<p>The maximum displacement is 42.6 micron and the peak von-mises stress is ~30MPa. Mechanically the motor is conservatively designed.</p> -->
+    	<p>Mechanically the motor is conservatively designed. The maximum displacement is ~81 micron (nominal air gap 950 micron) and the peak von-mises stress is ~40MPa. This deformation is static, so it can be partially compensated by "DC shifting" the alignment during machining to not impact air gap. It seems the dimensions of the back irons are chosen for magnetic reason rather than structural.</p>
 
 	<h3 id="Summary">Summary</h3>
 
-		<p>A commercial ironless linear motor is reverse engineered and the datasheet performance is compared with simulation. Good agreement is seen with 2D FEM calculations. Analysis showed a magnet grade of N42 is most likely for the off-the-shelf magnet tracks.</p>
+		<p>A commercial ironless linear motor is reverse engineered and the datasheet performance is compared with simulation. Good agreement is seen with 2D FEM calculation. Analysis showed a magnet grade of N42 is most likely for the off-the-shelf magnet tracks.</p>
 		
 	<h3>Potential Future Work</h3>
 		<ul>
@@ -139,6 +146,7 @@
 			<li>Evaluate performance improvement with Halbach Magnet Arrays</li>
 			<li>Evaluate flat or square coils for ironless LM</li>
 			<li>Magnetic shielding for sensitive applications</li>
+			<li>Advanced commutation law to eliminate force ripple</li>
 		</ul>
 
 	<hr>
