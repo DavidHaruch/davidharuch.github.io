@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>David J. Haruch</title>
+	<link href="../../styles.css" rel="stylesheet">
+		<script async src="https://www.googletagmanager.com/gtag/js?id=G-XWBF30N880"></script>
+	<script>
+	  window.dataLayer = window.dataLayer || [];
+	  function gtag(){dataLayer.push(arguments);}
+	  gtag('js', new Date());
+
+	  gtag('config', 'G-XWBF30N880');
+	</script>
+</head>
+
+<style type="text/css">
+	img {
+		border: solid 1px;
+		vertical-align: top;
+		margin: 1px;
+	}
+	th, td {
+ 		 padding: 4px;
+	}
+</style>
+
+<body>
+	<header>
+		<h1>David J. Haruch</h1>
+		<a href="https://davidharuch.github.io">Back to homepage</a>
+	</header>
+
+	<main>
+		<h2>Simple Close Loop Temperature Control</h2>
+		<p>Updated 03-28-2026</p>
+    
+    	<h3>Summary</h3>
+			<p>An experimental heater/thermistor setup was used to explore reasonable bounds of closed loop co-located temperature control with low cost hardware and simple control algorithms. Analysis, data processing was done in open-source/free tools like Python (i.e. no MATLAB) to show performance of 2 controller algorithms, PI and PI+Smith Predictor.</p>
+
+			<p>Using PI + Smith Predictor control algorithm, a -3dB closed loop bandwidth of 0.318Hz is achieved. With PI algorithm, BW 0.114Hz is achieved. In time domain jitter, the control reduces pk2pk temperature variation by a factor of 6.5x compared to an ambient thermistor. The pk2pk temperature at the feedback thermistor is ~0.05degC.</p>
+
+			<p>I learned about smith predictator from an old Kollmorgen paper that used it in a current feedback loop for a servo amplifier <br><a href="https://doi.org/10.23919/EPE17ECCEEUROPE.2017.8099312">https://doi.org/10.23919/EPE17ECCEEUROPE.2017.8099312</a></p>
+
+			<p>Potential applications are
+			<ul>
+				<li>Temperature stabilization of optical, stage, etc... structures on semiconductor captital equipment or precision machine tools</li>
+				<li>Temperature stabilization of ultra-precision encoder heads (drift ~1-100nm/degC depending on optical design/materials)</li>
+				<li>Temperature stabilization of voice coil motors used in force-control application. Supress Kf variation from NdFeB 0.12%Br/degC</li>
+			</ul>
+			</p>
+
+    	<h3>Experiment Setup</h3>
+
+    		<p>A kapton resistive heater is taped onto the outside wall of an aluminum rice-cooker pot (mass 165g). A one thermistor is kapton taped to the inside wall. A second thermistor on the breadboard is used to measure the ambient temperature. The setup sits in still, indoor air not exposed to much sunlight.</p>
+
+    		<img src="full_setup.jpg" width="80%">
+    	
+    		<h4>Heater PWM, Thermistor, DAQ Circuits</h3>
+
+	    	<p>A 30V/10A DC power supply is used to power the resistor in CV mode at 12V. A "logic level" MOSFET switches the load at a PWM frequency and duty cycle prescribed FIO0 pin on Labjack T7 DAQ box. A PWM frequency of 5Hz was used which is very slow but performs well and gives good duty cycle resolution of 0.0016% (later you will see 5Hz PWM is ~50x the bandwidth).</p>
+
+	    	<img src="heater.jpg" width="32%">
+	    	<img src="feedback_thermistor.jpg" width="32%">
+	    	<img src="breadboard.jpg" width="32%">
+
+	    	<p>A red LED is used as visual indicator of heating</p>
+
+	    	<p>The 10k NTC thermistors are provided 1.8VDC from a Labjack DAC0 pin. 10k resistors are used to form a voltage divider. An actual voltage reference and high precision, low TCR resistors would be prefered but the Labjack is not too bad and I don't care about accuracy in this case. The Labjack 16bit analog inputs are used along with Steinhart-Hart equation to measure temperature with noise-free resolution order of magnitude ~0.005degC.</p>
+
+	    	<p>The Labjack could be replaced with a small microcontroller or analog circuits in a "production-ready" design.</p>
+
+    	<h3>System Identification / Bodes</h3>
+
+	    	<p>I prefer to design controller filters via loop shaping, so it is helpful to have a plant bode of the system</p>
+
+	    	<p>At 30C setpoint, I injected a sine-sweep/chirp input from 0.0005Hz to 0.1Hz. The time domain plots are shown below. Gains were set too high so below ~0.2hr the feedback controller was rejecting the noise input which impacts the data quality of the DC gain. At 0.45hr there seems to be some ambient/environmental disturbance.</p>
+
+	    	<img src="plant_bode_timedomain.png" width="60%">
+
+	    	<p>The time domain data was processed into frequency domain plant data. A first-order-plus-deadtime model (discrete at 40Hz) was chosen to model the plant which fits quite well. The fit will be used for controller design instead of the experiment data.</p>
+	    	<img src="plant_bode_experiment.png" width="60%">
+
+    	
+    	<h3>Controller Filter Tuning</h3>
+
+    		<p>The Labjack t7 and my PC implement the voltage/resistance to temperature conversion equations, PI filter algorithm, and close loop at 40Hz sampling frequency with a python code.</p>
+
+    		<p>PI gains are selected based on the fitted plant model to give ~60deg of phase margin for good damping and a nearly straight open loop response. A lag filter could be similarly designed if desired.</p>
+
+    		<img src="std_PI_tuning.png" width="60%">
+
+    		<p>A very simple ambient temp sensor feedforward term can be set based on the known plant gain. It doesn't help performance much because the temperature in my apartment is relatively stable---one benefit of living in California</p>
+
+    		<h4>Potential for improved performance w/ Smith Predictor Algorithm</h4>
+
+    		<p>Smith Predictor algorithm is well known for improving performance on systems with delay. Using the FOPDT model parameters for the predictor  allows higher gains at the same phase margin. The downside is the controller stability, performance, etc... is not robust to changes in the plant. For example, differences in thermal contact resistance or change in ambient airflow/fans. In this case it improves the bandwidth by approximately a factor of 3</p>
+
+    		<img src="SP_tuning.png" width="60%">
+
+    		<h4>Controller Summary</h4>
+
+    		<table border="1px" cell-margin="10px">
+    				<tr>
+    					
+    					<td>Configuration</td>
+    					<td>Kp</td>
+    					<td>Ki</td>
+    					<td>PM (deg)</td>
+    					<td>Crossover 0dB OL (Hz)</td>
+    					<td>Bandwidth -3dB CL (Hz)</td>
+    				</tr>
+    				<tr>
+    					<td>PI</td>
+    					<td>0.8523</td>
+    					<td>0.0284</td>
+    					<td>58.8</td>
+    					<td>0.049</td>
+    					<td>0.114</td>
+    				</tr>
+    				<tr>
+    					<td>PI+SP</td>
+    					<td>5.5567</td>
+    					<td>0.1852</td>
+    					<td>61.7</td>
+    					<td>0.073</td>
+    					<td>0.318</td>
+    				</tr>
+    		</table>
+
+    	<h3>Time domain tracking, jitter, etc.. Experiment Data</h3>
+
+	    	<h4>Standard PI (phase margin 60deg)</h4>
+	    	<p>Tracking a step input to the reference of 5degC agrees well with expectation of a well damped, relatively quick response even with actuator saturation (100% duty cycle up to 7.2s)</p>
+
+	    	<img src="PI_step.png" width="50%">
+
+	    	<h4>Standard PI + Smith Predictor (phase margin 60deg)</h4>
+	    	<p>The smith predictor improves performance compared to standard PI and is stable, well damped even with actuator saturation (100% duty cycle up to 7.48s). The settling is faster and there is less overshoot/undershoot.</p>
+	    	<img src="step_smith_vs_PI.png" width="50%">
+
+			<h4>High Gains Without Smith Predictor</h4>
+			<p>As expected, using the high gains without smith predictor shows oscillatory/unstable behavior</p>
+	    	<img src="smith_vs_nosmith_samegains_ringing.png" width="50%">
+
+    		<h4>Static jitter</h4>
+
+    		<p>Over a 2.7 minute time period in still air, the jitter for PI and PI + Smith Predictor are similar and very low. The ambient air changes temperature ~0.32degC pk2pk and is reduced by factor of 6.5x to 0.049degC with the PI filter. The higher gains of the PI + smith predictor do not appear to translate to better disturbance rejection in time domain for some reason.</p>
+
+    		<p>A 6.5X reduction in thermal drift is difficult to achieve with improvements in material if you are already using low CTE materials like Invar or Carbon Fiber Composites</p>
+
+    		<img src="SS_Jitter.png" width="70%">
+
+			<p>Additionally, the changes in ambient thermistor are not correlated with changes at the feedback thermistor, therefore there may be some other temperature disturbance not being captured. That is to say the controller could be performing better (or worse) than this data reflects due to chosen placement of ambient thermistor, perhaps adding 2 or 3 more ambient thermistors in different locations would help find root cause of the disturbance as there are likely drafts/airflows in my apartment.</p>
+
+	</main>
+</body>
+
+</html>
