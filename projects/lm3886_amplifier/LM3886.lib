@@ -1,0 +1,78 @@
+* =====================================================================
+* Clean 7-Pin LM3886 Macromodel for LTspice
+* Compatible with Physical Symbol Pinouts (INP, INN, VCC, VEE, GND, OUT, MUTE)
+* =====================================================================
+.SUBCKT lm3886 Vip Vin VDD VSS GND Vout MUTE
+* Input Stage Noise & Parameters
+X_Input_Stage Vip Vin 22 21 GND INPUT_OP_0
++ PARAMS: RCM=1G CCM=1pf CDM=10pf
+Vos 22 20 1M
+
+* Open Loop Gain & Frequency Pole/Zero Transfer Function Blocks
+XU2 20 Vin 11 GND PD_STAGE_0
++ PARAMS: AOL=115 GBW=8MEG SRP=19.1MEG SRN=19.1MEG
+R_FIX_11 11 GND 1T
+
+* Power Supply Rejection Ratio (PSRR) & Common Mode Rejection Ratio (CMRR)
+XU4 VDD GND 15 16 GND PSRR_STAGE_0
++ PARAMS: PSRR=120 FPSRR=8K
+R_FIX_15 15 GND 1T
+
+XU_CMRR 16 18 GND CMRR_STAGE_0
++ PARAMS: CMRR=110 FCMRR=20
+
+* Output Drive & Current Limit Clamps
+XU3 11 Vout PD_STAGE_OUTPUT
++ PARAMS: RON=0.1 IMAX=11.5 IMIN=-11.5
+
+* Quiescent Tracking & Mute Circuitry
+XU5 MUTE 0 VDD VSS IV_MUTE_0
+.ENDS
+
+* --- Supporting Core Subcircuits ---
+.SUBCKT INPUT_OP_0 VIP VIN VOP VON GND PARAMS: RCM=1G CCM=1p CDM=10p
+C1 VOP GND {CCM}
+C2 VON GND {CCM}
+C3 VOP VON {CDM}
+R1 VIP VOP {RCM}
+R2 VIN VON {RCM}
+.ENDS
+
+.SUBCKT PD_STAGE_0 VIP VIM VO GND PARAMS: AOL=115 GBW=8MEG SRP=19.1MEG SRN=19.1MEG
+.PARAM PI=3.141592
+.PARAM CC=10pf
+.PARAM FP={GBW/PWR(10,AOL/20)}
+.PARAM RC={1/(2*PI*CC*FP)}
+.PARAM GC={PWR(10,AOL/20)/RC}
+G1 GND VO VIP VIM {GC}
+C1 VO GND {CC}
+R1 VO GND {RC}
+.ENDS
+
+.SUBCKT PSRR_STAGE_0 VDD VSS VI VO GND PARAMS: PSRR=120 FPSRR=8K
+.PARAM PI=3.141592
+.PARAM RPSRR=1
+.PARAM GPSRR={PWR(10,-PSRR/20)/RPSRR}
+G1 GND VO VDD VSS {GPSRR}
+R1 VO GND {RPSRR}
+.ENDS
+
+.SUBCKT CMRR_STAGE_0 VI VO GND PARAMS: CMRR=110 FCMRR=20
+.PARAM PI=3.141592
+.PARAM RCMRR=1
+.PARAM GCMRR={PWR(10,-CMRR/20)/RCMRR}
+G1 GND VO VI GND {GCMRR}
+R1 VO GND {RCMRR}
+.ENDS
+
+* --- Fixed Linear Output Stage for AC Sweep Compatibility ---
+.SUBCKT PD_STAGE_OUTPUT IN OUT PARAMS: RON=0.1 IMAX=11.5 IMIN=-11.5
+GRES IN OUT VALUE={LIMIT(V(IN,OUT)/RON, IMAX, IMIN)}
+R_AC_DRIVE IN OUT {RON}
+.ENDS
+* =====================================================================
+
+.SUBCKT IV_MUTE_0 MUTE GND VDD VSS
+R_MUTE MUTE VSS 100K
+.ENDS
+* =====================================================================

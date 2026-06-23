@@ -1,0 +1,90 @@
+LTspice 24.0.12 for Windows
+Circuit: * C:\Users\david\Documents\GitHub\davidharuch.github.io\projects\lm3886_amplifier\lm3886_op27_amplifier_v1.asc
+Start Time: Sun May 31 23:40:20 2026
+WARNING: Can't resolve .param ibrkv=1m)
+WARNING: Can't resolve .param ibrkv=1m)
+WARNING: Can't resolve .param ibrkv=1m)
+WARNING: Can't resolve .param ibrkv=1m)
+Error on line 13 : v1 0 n005 v
+	 Unknown parameter "v"
+Error on line 14 : v4 n003 0 v
+	 Unknown parameter "v"
+solver = Normal
+Maximum thread count: 16
+tnom = 27
+temp = 27
+method = modified trap
+ERROR: Node U2:11 is floating and connected to current source G:U2:U2:1
+ERROR: Node U2:U_TF:VP1 is floating and connected to current source G:U2:U_TF:P1
+ERROR: Node U2:U_TF:VP2 is floating and connected to current source G:U2:U_TF:P2
+ERROR: Node U2:U_TF:VP3 is floating and connected to current source G:U2:U_TF:P3
+ERROR: Node U2:U_TF:VP4 is floating and connected to current source G:U2:U_TF:P4
+ERROR: Node U2:U_TF:VZ1 is floating and connected to current source G:U2:U_TF:Z1
+ERROR: Node U2:U_TF:VZ2 is floating and connected to current source G:U2:U_TF:Z2
+ERROR: Node U2:U_TF:VZ3 is floating and connected to current source G:U2:U_TF:Z3
+ERROR: Node U2:U_TF:VZ4 is floating and connected to current source G:U2:U_TF:Z4
+ERROR: Node U2:17 is floating and connected to current source G:U2:U_TF:Z5
+
+u2:d4:idiode: Emission coefficient, N=0.01, too small, limited to 0.1
+u2:d3:idiode: Emission coefficient, N=0.01, too small, limited to 0.1
+u2:d2:idiode: Emission coefficient, N=0.01, too small, limited to 0.1
+u2:d1:idiode: Emission coefficient, N=0.01, too small, limited to 0.1
+v1: Missing value, assumed 0V @ DC
+v4: Missing value, assumed 0V @ DC
+Singular matrix:  Check node u2:u_psrr:1
+   Iteration No. 1
+Direct Newton iteration failed to find .op point.  (Use ".option noopiter" to skip.)
+Starting Gmin stepping
+Gmin = 10
+Gmin = 1.07374
+vernier = 0.5
+vernier = 0.25
+vernier = 0.125
+vernier = 0.0625
+Gmin = 1.08884
+vernier = 0.03125
+vernier = 0.015625
+Gmin = 1.03922
+vernier = 0.0078125
+vernier = 0.00390625
+Gmin = 1.02313
+vernier = 0.00520833
+vernier = 0.00260417
+Gmin = 1.01616
+vernier = 0.00347222
+vernier = 0.00173611
+vernier = 0.00231481
+Gmin = 1.01205
+vernier = 0.00115741
+vernier = 0.00154321
+vernier = 0.000771604
+Gmin = 1.0104
+vernier = 0.00102881
+Gmin = 1.00812
+vernier = 0.000514403
+vernier = 0.00068587
+Gmin = 1.00704
+vernier = 0.000514403
+vernier = 0.00068587
+vernier = 0.000514402
+Gmin = 1.00622
+Singular matrix:  Check nodes u2:u4:1 and u2:u_cmrr:1
+   Iteration No. 2
+Gmin = 0
+Singular matrix:  Check nodes u2:u4:1 and u2:u_cmrr:1
+   Iteration No. 1
+Gmin stepping failed
+
+Starting source stepping with srcstepmethod=0
+Singular matrix:  Check nodes u2:u_cmrr:1 and u2:u4:1
+   Iteration No. 1
+Singular matrix:  Check node u2:u_psrr:1
+   Iteration No. 2
+Could not converge to DC with sources off!
+Starting source stepping with srcstepmethod=1
+Singular matrix:  Check nodes u2:u4:1 and u2:u_psrr:1
+   Iteration No. 1
+Could not converge to DC with sources off!
+Pseudo Transient succeeded in finding the operating point at 327.684 ms.
+Total elapsed time: 5.755 seconds.
+

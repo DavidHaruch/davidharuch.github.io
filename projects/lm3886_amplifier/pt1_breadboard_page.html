@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>David J. Haruch | LM3886 Linear Amplifier Pt 1: Breadboard</title>
+	<link href="../../styles.css" rel="stylesheet">
+		<script async src="https://www.googletagmanager.com/gtag/js?id=G-XWBF30N880"></script>
+	<script>
+	  window.dataLayer = window.dataLayer || [];
+	  function gtag(){dataLayer.push(arguments);}
+	  gtag('js', new Date());
+
+	  gtag('config', 'G-XWBF30N880');
+	</script>
+</head>
+
+<style type="text/css">
+	.img_border {
+		border: solid;
+		vertical-align: top;
+		margin: 10px;
+	}
+</style>
+
+<body>
+	<header>
+		<h1>David J. Haruch</h1>
+		<a href="https://davidharuch.github.io">Back to homepage</a>
+	</header>
+
+	<main>
+		<h2>LM38866 Linear Amplifier Pt 1: Breadboard</h2>
+		<h4>Updated 06-06-2026</h4>
+    
+		<p>A linear amplifier for driving resistive and inductive loads is designed and tested. Tests are performed using a function gen, scope, etc... This amplifier is useful for driving voice coils, reluctance actuators, shakers, etc... at high bandwidth and high power at order-of-magnitude lower cost than COTS options.</p>
+
+		<p>I chose to design/build this for 4 reasons</p>
+		<ol>
+			<li>COTS amplifiers (Trust, Varedan) are expensive, even used they can be >$100 each on ebay</li>
+			<li>Gain hands-on experience with practical aspects of analog circuit design</li>
+			<li>Use experience gained with this circuit to design analog closed loop flux amplifier for driving reluctance actuators</li>
+			<li>Extend this design to drive 3 (or more than 3) phase motors</li>
+		</ol>
+
+		<p>The next step is to put this design on PCB and heatsink, which I expect to cost ~$40</p>
+
+		<h3>Breadboard/Setup Photo</h3>
+		<img src="annotate_breadboard1.png" width="50%">
+
+
+	   	<h3>Quick Breadboard Performance Measurements</h3>
+
+		   	<p>For all waveforms shown, channel 1 (yellow) = LM3886 output voltage, channel 2 (cyan) = function gen output, channel 3 (pink) = sense current output from amplifier</p>
+
+		   	<p>The small-signal response to step input is shown below. Time scale is 20us/div so the response is fast, well damped, with a small overshoot. The rise time is ~20us which implies bandwidth 0.35/20e-6 = ~18kHz</p>
+		   	<img src="2026-06-04 exp results\hihghbwbode june43.png" width="75%">
+
+		   	<p>A small-signal close loop bode from input voltage to sense current is captured by sine sweep (scope has built-in-feature). The DC gain is -3.8dB or ~0.65A/V. The phase starts at 180deg because the input inverts. The -3dB point is ~25kHz. The phase lag at 1kHz is -3.8deg. There is ~0.6dB of peaking in the close loop which typically means healthy phase margin---aligns well with the step input results.</p>
+
+
+		   	<p>The raw data for the plot is located here <a href="2026-06-04 exp results\hihghbwbode june40.csv">CSV</a></p>
+
+		   	<img src="2026-06-04 exp results\hihghbwbode june40_thesis_bode.png"  width="75%" border="1px grey">
+
+    	<h3>Load/Plant Reluctance Acutator (E-Core Motor)</h3>
+	    	<p>A hand-made reluctance acuator is used as the "plant" to be driven. Its DC resistance is ~0.55ohm at 20C which is poorly matched to this chip, I will need to re-wind with smaller magnet wire.</p>
+    
+	    <h3>Power amplifier chip</h3>
+	    	<p>LM3886 is selected as it has a very high power capability to cost ratio. The chip datasheet indicates power of 135W Pk/68W Cont. provided the load is well matched. The cost is ~$7 in 2026.</p>
+
+    	<h3>Current Feedback</h3>
+    		<p>A 0.1 ohm shunt and gain-of-10 differential amplifier yield a 1A/V feedback. At 10A (10W), TCR could impact  accuracy. To mitigate this risk, a $5, 3.7degC/W TO220 resistor was chosen; a 1.5degC/W TO247 alternative tripled the cost.</p>
+
+			<p>With 0.5degC/W paste and a 1degC/W heatsink, peak temperature is 77degC (25degC ambient). This 52degC rise causes a maximum 0.5% shift (100ppm/C). Real error may be lower as continuous 10A operation is unlikely. (This simple analysis doesn't consider the obvious nonlinearity in I2R when R is function of T)</p>
+
+    		<img src="thermal_network_currentshunt.png" width="65%" border="1px grey">
+
+    		<p>Below is bode data from one setup of the current shunt differential amplifier. Four 5% resistors set gain to 100 across 1% 0.1ohm shunt so expected gain is ~20dB and measurement is ~20.61dB which seems appropriate. The -3dB point is 115.7kHz (instead of expected 80kHz per 8MHz GBW). Either way the frequency is high enough to have effectively no impact as the phase loss at 10kHz is -0.5deg. In final design I set the gain down to 10 with 0.1% resistors which extends bandwidth further and allows current measurement up to thermal limit of the shunt. Above 10MHz it seems parasitics or non-ideal behaviors start to impact the circuit.</p>
+
+    		<img src="2026-06-04 exp results\op27gain10noninv0_bode.png" width="65%" border="1px grey">
+
+    	<h3>Controller </h3>
+    		<p>An analog PI filter is used. Analog gives order-of-magnitude better performance than a typical digital current controller using ADC/DAC and DSP chip. Downside is control parameters cannot be updated easily with a software update and that implementing more complex controller algorithms is non-trivial. Control parameters must be set with resistors and capacitors</p>
+
+	</main>
+</body>
+
+</html>
