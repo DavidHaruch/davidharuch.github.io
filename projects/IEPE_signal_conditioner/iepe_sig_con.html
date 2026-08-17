@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>IEPE Signal Conditioner</title>
+	<!-- <link href="../../styles.css" rel="stylesheet"> -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=G-XWBF30N880"></script>
+	<script>
+	  window.dataLayer = window.dataLayer || [];
+	  function gtag(){dataLayer.push(arguments);}
+	  gtag('js', new Date());
+
+	  gtag('config', 'G-XWBF30N880');
+	</script>
+</head>
+
+<!-- <style type="text/css">
+	.img_border {
+		border: solid;
+		vertical-align: top;
+		margin: 10px;
+	}
+</style> -->
+
+<body>
+	<header>
+		<h1>David J. Haruch</h1>
+		<a href="https://davidharuch.github.io">Back to homepage</a>
+	</header>
+
+	<main>
+		<h2>IEPE Signal Conditioner</h2>
+		<h4>Updated 07-27-2026</h4>
+    
+		<p>This web page describes a low-cost signal conditioner for powering IEPE sensors like accelerometers, microphones, load cells, and pressure sensors. Special thanks to Alex Reinhart's article listed as reference #1</p>
+
+
+		<h3>Schematic, PCB</h3>
+
+		<p>This circuit is based on the reference design published by PCB Peizotronics (reference #2), put into a housing with BNC connectors. It is a 2mA current regulating diode (or diodes) and high pass filter. The cutoff frequency of the filter can be user-adjusted with different resistor and capacitor. The power supply can come from a 24V+ linear bench supply, or 3x 9V batteries. An alternative IC based approach to replace the current regulating diodes would also work very well</p>
+
+		<img src="schematic.png" width="40%">
+
+		<p>A 2-layer PCB was designed for thru-hole components, room is left for up to 6mA supply (3x 2mA current regulating diodes). The ECAD files are in the github repo. I selected 10uF cap and 20kohm resistor for the AC coupling around 1Hz. Test points are included to see the DC bias voltage</p>
+		
+		<img src="pcb_layout.png" height="400px">
+		<img src="IMG_8907.png" height="400px">
+		<img src="IMG_8912.png" height="400px">
+
+
+		<h3>Costed BOM @ QTY 10</h3>
+
+		<table border="1px"><thead>
+		  <tr>
+		    <th>Part</th>
+		    <th>Vendor</th>
+		    <th>Part #</th>
+		    <th>QTY</th>
+		    <th>Cost/ea ($USD)</th>
+		  </tr></thead>
+		<tbody>
+		  <tr>
+		    <td>CRD</td>
+		    <td>Semitec</td>
+		    <td>E-202</td>
+		    <td>4</td>
+		    <td>1.17</td>
+		  </tr>
+		  <tr>
+		    <td>AC coupling cap</td>
+		    <td>Panasonic</td>
+		    <td>ECA-1HM100</td>
+		    <td>4</td>
+		    <td>0.099</td>
+		  </tr>
+		  <tr>
+		    <td>Resistor</td>
+		    <td>SEI Stackpole</td>
+		    <td>RNF14FTD20K0</td>
+		    <td>4</td>
+		    <td>0.044</td>
+		  </tr>
+		  <tr>
+		    <td>2-Layer PCB</td>
+		    <td>~</td>
+		    <td>~</td>
+		    <td>1</td>
+		    <td>4.72</td>
+		  </tr>
+		  <tr>
+		    <td>Bulkhead BNCs</td>
+		    <td>Amphenol</td>
+		    <td>112575</td>
+		    <td>8</td>
+		    <td>2.22</td>
+		  </tr>
+		  <tr>
+		    <td>Enclosure<br>115x64x37<br>(Guitar Pedal Size)</td>
+		    <td>~</td>
+		    <td>~</td>
+		    <td>1</td>
+		    <td>8.30</td>
+		  </tr>
+		  <tr>
+		    <td>Hookup Wire</td>
+		    <td>~</td>
+		    <td>~</td>
+		    <td>~</td>
+		    <td>1.00</td>
+		  </tr>
+		  <tr>
+		    <td>Banana Plugs Bulkhead</td>
+		    <td>Radiall</td>
+		    <td>R941619000</td>
+		    <td>2</td>
+		    <td>4.09</td>
+		  </tr>
+		</tbody></table>
+
+		<p><i><b>Total $45.21</b></i></p>
+
+		<p>$10 of cost reduction is feasible by using "ebay/amazon" grade mystery parts especially the BNC connectors</p>
+
+		<p>For reference, PCB Peizotronics lowest cost 4ch signal conditioner is over $600--with many additional features so the price is understandable</p>
+
+	   	<h3>Example Waveforms</h3>
+
+	   	<p>Below data is collected using PCB Piezotronics 086C01 Impact Hammer and 352A10 Accelerometer. Even with a 12 bit oscilloscope in "hi-res" mode, the natural frequencies (w/ scope FFT function) can be clearly observed over 60dB of range and a clean FRF could be measured with post-processing of the data on a computer. An expensive 24bit ADC like NI4431 can be used be at higher cost for improved performance compared to a scope</p>
+	   	<img src="modaltest12.png" width="50%">
+
+		<h3>References</h3>
+
+		<ol>
+			<li><a href="TN_6_PoweringICP.pdf">PCB Piezotronics: TN-6 Powering ICP® Sensors With Signal Conditioners</a></li>
+			<li><a href="https://www.refsmmat.com/posts/2022-02-12-accelerometers-fun-profit.html">Alex Reinhart: Powering accelerometers for fun, profit, and field recording </a></li>
+			<li><a href="https://www.endevco.com/contentStore/mktgContent/endevco/dlm_uploads/2019/02/Endevco_TP326_REVISED.pdf">Endevco Technical Paper 326</a></li>
+		</ol>
+
+	</main>
+</body>
+
+</html>
