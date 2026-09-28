@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Low-Cost Experimental Modal Analysis of Tecnotion UX9S Coil Unit</title>
+	<!-- <link href="../../styles.css" rel="stylesheet"> -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=G-XWBF30N880"></script>
+	<script>
+	  window.dataLayer = window.dataLayer || [];
+	  function gtag(){dataLayer.push(arguments);}
+	  gtag('js', new Date());
+
+	  gtag('config', 'G-XWBF30N880');
+	</script>
+</head>
+
+<!-- <style type="text/css">
+	.img_border {
+		border: solid;
+		vertical-align: top;
+		margin: 10px;
+	}
+</style> -->
+
+<body>
+	<header>
+		<h1>David J. Haruch</h1>
+		<a href="https://davidharuch.github.io">Back to homepage</a>
+	</header>
+
+	<main>
+		<h2>Low-Cost Experimental Modal Analysis of Tecnotion UX9S Coil Unit</h2>
+		<h4>Updated 09-27-2026</h4>
+    
+		<p>This web page describes experimental modal analysis results of a Tecnotion UX9S linear motor coil unit. Used equiment, a low-cost oscilloscope, and (free) AI-model written software were used to collect the data which makes this low cost compared to commercial solutions</p>
+
+		<p>Experimental structural dynamics measurements are useful for R&D/vibrations/FEM correlation work in a variety of engineering fields such as semiconductor capital equipment, machine tool, rotating turbo-machinery, air/spacecraft, automotive/NVH</p>
+
+		<h3>Experiment Setup</h3>
+
+		<p>A free-free boundary condition was simulated by hanging the coil from its power cable per the photo</p>
+		<p>A PCB Piezotronics 086C01 impact hammer was used to tap the coil at point #101 and measure impact force</p>
+		<p>A PCBPiezotronics 352A10 accelerometer was used to measure acceleration, it was moved between points #101 to #110. Roving accelerometer was chosen instead of (faster) roving hammer test because double-hits were very difficult to avoid on the lightweight epoxy section of the coil with the impact hammer used</p>
+		<p>A <a href="../IEPE_signal_conditioner/iepe_sig_con.html">home-made IEPE signal conditioning box</a> and BK precision 1760A linear DC power supply were used to power the IEPE sensors with 2mA of current and 0.8Hz HPF -3dB point</p>
+		<p>A Rigol MHO934 digital oscilloscope was used to record the two waveforms (triggered on the impact hammer) in "hi-res" mode</p>
+		<p>Python data collection, tagging, averaging and post-processing software was written using "Google Gemini 3.6 Flash AI model"</p>
+
+		<img src="points.png" width="250px">
+		<img src="scopecat.png" width="700px">
+
+		<h3>Experiment Results: Overlaid FRFs (units g/N)</h3>
+		<img src="all_data_magnitudelog.png" width="800px">
+		<!-- <img src="coherence.png" width="600px"> -->
+
+		<p>The first few natural frequencies of this specific coil unit are:</p>
+
+		
+		<ol>
+			<li>237.8Hz Bending</li>
+			<li>308.8Hz Torsion </li>
+			<li>531.5Hz ???</li>
+			<li>676.5Hz Torsion</li>
+			<li>913.3Hz Epoxy/copper higher order</li>
+			<li>1232Hz Higher order</li>
+		</ol>
+
+		<p>Comment: first few resonances appear lightly damped ~1-1.5%</p>
+
+		<h3>Experiment Results: ODS Animations</h3>
+		<video autoplay loop muted playsinline width="300px">
+			<source src="ods_240hz.mp4" type="video/mp4">
+		</video>
+		<video autoplay loop muted playsinline width="300px">
+			<source src="ods_314hz.mp4" type="video/mp4">
+		</video>
+		<!-- <video autoplay loop muted playsinline width="300px">
+			<source src="ods_542hz.mp4" type="video/mp4">
+		</video> -->
+		<video autoplay loop muted playsinline width="300px">
+			<source src="ods_686hz.mp4" type="video/mp4">
+		</video>
+		<video autoplay loop muted playsinline width="300px">
+			<source src="ods_914hz.mp4" type="video/mp4">
+		</video>
+		<video autoplay loop muted playsinline width="300px">
+			<source src="ods_1232hz.mp4" type="video/mp4">
+		</video>
+
+		<p>Comment: resonances >900Hz likely need more points to resolve exact shapes</p>
+
+		
+
+	</main>
+</body>
+
+</html>
