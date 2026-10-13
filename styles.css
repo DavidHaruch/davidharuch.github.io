@@ -1,18 +1,20 @@
 html {
 	/*font-family: "MS PGothic", sans-serif;*/
-	font-family: sans-serif;
-	/*font-family: serif;*/
+	/*font-family: sans-serif;*/
+	font-family: Times New Roman, serif;
 	margin: 0 auto;
-	line-height: 1.5;
-	background-color: #ddd;
-	color: #111;
+	line-height: 1.2;
+	/*background-color: #ddd;*/
+	background-color: #fff;
+	/*color: #111;*/
+	color: #000;
 	counter-reset: figures;
 }
 
 body {
-	margin:0 auto;
-	padding: 35px 35px 80px;
-	max-width: 950px;
+	margin:0 0;
+	padding: 20px;
+	max-width: 1000px;
 	background-color: #fff;
 }
 
@@ -26,15 +28,15 @@ h1,h2,h3,h4 {
 }
 
 h2,h3 {	
-	border-bottom: 1px solid #DDD;
+	/*border-bottom: 1px solid #DDD;*/
 	/*border-left: 10px solid #88B04B;*/
-	padding: 1px 0 1px 1px;
+	/*padding: 1px 0 1px 1px;*/
 }
 
 h3 {	
-	border-bottom: 1px solid #DDD;
+	/*border-bottom: 1px solid #DDD;*/
 	/*border-left: 10px solid #88B04B;*/
-	padding: 1px 0 1px 1px;
+	/*padding: 1px 0 1px 1px;*/
 }
 
 ul {
@@ -43,11 +45,11 @@ ul {
 }
 
 h4 {
-	font-style: italic;
+	/*font-style: italic;*/
 }
 
 h5 {
-	text-decoration: underline;
+	/*text-decoration: underline;*/
 }
 
 figure {
